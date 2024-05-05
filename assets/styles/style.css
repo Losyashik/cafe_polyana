@@ -1,8 +1,46 @@
+@font-face {
+  font-family: "Kreadon";
+  src: url(./../fonts/Kreadon.ttf);
+}
+* {
+  font-family: "Kreadon";
+}
+
 body {
   margin: 0;
   padding: 0;
 }
 
-main {
+.main {
   min-height: 100vh;
+}
+
+.card {
+  width: 320px;
+  box-shadow: 0 0 5px 0 #000;
+  border-radius: 10px;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  transform: scale(1.5);
+}
+@media (max-width: 1200px) {
+  .card {
+    margin: 3vw;
+  }
+}
+.card_image {
+  width: 100%;
+  height: 210px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  box-shadow: inset 0 0 5px 0px #000;
+  border-radius: 10px 10px 0 0;
+}
+.card_heading {
+  text-align: center;
+}
+.card_description {
+  padding: 0 10px 10px;
 }/*# sourceMappingURL=style.css.map */
