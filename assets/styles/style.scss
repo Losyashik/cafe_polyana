@@ -13,6 +13,25 @@ body {
 .main {
     min-height: 100vh;
 }
+
+.button {
+    box-sizing: border-box;
+    display: block;
+    padding: 10px 30px;
+    text-align: center;
+    border-radius: 10px;
+    text-decoration: none;
+    // box-shadow: 0 0 7px 0 #000;
+    background: $focus-color;
+    color: #fff;
+    border: 1px solid $focus-color;
+    transition: all 0.3s;
+    font-weight: bold;
+    &:hover {
+        background: #fff;
+        color: #000;
+    }
+}
 .card {
     // background: $focus-color;
     width: 320px;
@@ -20,7 +39,6 @@ body {
     border-radius: 10px;
     box-sizing: border-box;
     user-select: none;
-    transform: scale(1.5);
     @media (max-width: 1200px) {
         margin: 3vw;
     }
@@ -37,4 +55,14 @@ body {
     &_description {
         padding: 0 10px 10px;
     }
+    &_button {
+        margin: 0 auto 1vh;
+        background: #fff;
+        color: #000;
+        &:hover {
+            background: $focus-color;
+            color: #fff;
+        }
+    }
 }
+
