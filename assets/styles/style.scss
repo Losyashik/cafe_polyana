@@ -1,4 +1,4 @@
-$focus-color: #78ba52;
+$focus-color: #0ab554;
 @font-face {
     font-family: "Kreadon";
     src: url(./../fonts/Kreadon.ttf);
@@ -13,7 +13,59 @@ body {
 .main {
     min-height: 100vh;
 }
-
+.topbar {
+    z-index: 15;
+    background: rgb(#1e140c, 90%);
+    position: absolute;
+    width: 100%;
+    display: grid;
+    box-sizing: border-box;
+    padding: 0 5vw;
+    grid-template-columns: 12vw 1fr 50vw;
+    grid-template-areas: "logo f navigation ";
+    align-items: center;
+    border-bottom: 2px solid #0ab554;
+    &_logo {
+        grid-area: logo;
+        &-img {
+            display: block;
+            object-fit: contain;
+            width: 100%;
+            height: 100%;
+        }
+    }
+    &_navigation {
+        grid-area: navigation;
+    }
+}
+.navigation {
+    display: flex;
+    list-style-type: none;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0;
+    &_block {
+        padding: 10px;
+        
+    }
+    &_link {
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        font-weight: bolder;
+        color: $focus-color;
+        text-align: center;
+        
+    }
+    &_line{
+        width: 0;
+        border-bottom: 1px solid $focus-color;
+        transition: width .2s;
+    }
+    &_link:hover + &_line{
+        width: 100%;
+    }
+}
 .button {
     box-sizing: border-box;
     display: block;
@@ -66,3 +118,93 @@ body {
     }
 }
 
+.footer {
+    min-height: 40vh;
+    box-shadow: 0 0 5px 0 #000;
+    display: grid;
+    grid-template-areas: "map contacts navigation";
+    grid-template-columns: 50% 25% 25%;
+    grid-template-rows: 100%;
+    box-sizing: border-box;
+    align-content: center;
+    padding: 2vh 5vw;
+    justify-content: space-between;
+    background: #1e140c;
+    &_map {
+        position: relative;
+        z-index: 10000;
+        border: 2px solid #58360c;
+        border-radius: 10px;
+        grid-area: map;
+        &-block {
+            // display: none;
+            width: 100%;
+            border-radius: 10px;
+            height: 100%;
+            iframe {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        &-shadow {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            box-shadow: inset 0 0 10px 5px #1e140c;
+            user-select: none;
+            pointer-events: none;
+        }
+    }
+    &_navigation {
+        grid-area: navigation;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        &-logo {
+            display: block;
+            width: 50%;
+            object-fit: contain;
+        }
+        &-ul {
+            width: 50%;
+            flex-direction: column;
+            .navigation_block{
+                width: max-content;
+            }
+        }
+    }
+}
+.contacts {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &_item {
+        display: block;
+        color: #fff;
+        margin: 2vh 0;
+    }
+    &_number {
+        &-link {
+            text-decoration: none;
+            color: #fff;
+        }
+    }
+    &_soc {
+        width: 75%;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    &_link {
+        color: #fff;
+        text-decoration: none;
+        display: block;
+    }
+    &_image {
+        display: block;
+        height: 100%;
+    }
+}
