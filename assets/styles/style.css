@@ -11,22 +11,27 @@ body {
   padding: 0;
 }
 
-.main {
-  min-height: 100vh;
-}
-
 .topbar {
   z-index: 15;
   background: rgba(30, 20, 12, 0.9);
-  position: absolute;
+  position: fixed;
   width: 100%;
   display: grid;
   box-sizing: border-box;
   padding: 0 5vw;
-  grid-template-columns: 12vw 1fr 50vw;
-  grid-template-areas: "logo f navigation ";
+  grid-template-columns: 12vw 40vw 12vw;
+  grid-template-areas: "logo navigation basket";
+  justify-content: space-between;
+  justify-items: center;
   align-items: center;
   border-bottom: 2px solid #0ab554;
+  min-height: 10vh;
+}
+@media (max-width: 640px) {
+  .topbar {
+    grid-template-areas: "burger logo basket" "navigation navigation navigation";
+    grid-template-columns: 20vw 40vw 20vw;
+  }
 }
 .topbar_logo {
   grid-area: logo;
@@ -40,6 +45,37 @@ body {
 }
 .topbar_navigation {
   grid-area: navigation;
+  width: 100%;
+}
+.topbar_basket {
+  cursor: pointer;
+  grid-area: basket;
+  position: relative;
+  width: 70px;
+  height: 70px;
+  background-image: url(./../images/basket.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.topbar_basket-counter {
+  display: none;
+}
+.topbar_basket--fill {
+  background-image: url(./../images/fill-basket.png);
+}
+.topbar_basket--fill .topbar_basket-counter {
+  width: 30px;
+  height: 30px;
+  background: #0ab554;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: smaller;
 }
 
 .navigation {
@@ -70,6 +106,7 @@ body {
 }
 
 .button {
+  cursor: pointer;
   box-sizing: border-box;
   display: block;
   padding: 10px 30px;
@@ -138,10 +175,23 @@ body {
   justify-content: space-between;
   background: #1e140c;
 }
+@media (max-width: 1200px) {
+  .footer {
+    grid-template-areas: "navigation navigation" "map contacts";
+    grid-template-columns: 70% 25%;
+    grid-template-rows: auto;
+  }
+}
+@media (max-width: 800px) {
+  .footer {
+    grid-template-areas: "navigation" "map" "contacts";
+    grid-template-columns: 100%;
+  }
+}
 .footer_map {
   position: relative;
   z-index: 10000;
-  border: 2px solid #58360c;
+  border: 2px solid #1e140c;
   border-radius: 10px;
   grid-area: map;
 }
@@ -173,15 +223,24 @@ body {
   align-items: center;
   flex-direction: column;
 }
+@media (max-width: 1200px) and (min-width: 800px) {
+  .footer_navigation {
+    flex-direction: row;
+  }
+}
 .footer_navigation-logo {
+  width: 100%;
   display: block;
-  width: 50%;
   -o-object-fit: contain;
      object-fit: contain;
 }
 .footer_navigation-ul {
-  width: 50%;
   flex-direction: column;
+}
+@media (max-width: 1200px) {
+  .footer_navigation-ul {
+    flex-direction: row;
+  }
 }
 .footer_navigation-ul .navigation_block {
   width: -moz-max-content;
@@ -193,6 +252,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 .contacts_item {
   display: block;
@@ -212,8 +272,17 @@ body {
   color: #fff;
   text-decoration: none;
   display: block;
+  width: 30%;
 }
 .contacts_image {
   display: block;
-  height: 100%;
+  width: 100%;
+}
+.contacts_br {
+  display: none;
+}
+@media (max-width: 1200px) {
+  .contacts_br {
+    display: block;
+  }
 }/*# sourceMappingURL=style.css.map */

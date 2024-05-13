@@ -13,10 +13,19 @@
     <nav class="topbar">
         <a href="./" class="topbar_logo"><img src="./assets/images/logo.png" alt="Поляна" class="topbar_logo-img"></a>
         <ul class="topbar_navigation navigation">
-            <li class="navigation_block"><a href="./" class="navigation_link">Главная</a><div class="navigation_line"></div></li>
-            <li class="navigation_block"><a href="./catalog" class="navigation_link">Каталог</a><div class="navigation_line"></div></li>
-            <li class="navigation_block"><a href="./contacts" class="navigation_link">Контакты</a><div class="navigation_line"></div></li>
+            <li class="navigation_block"><a href="./" class="navigation_link">Главная</a>
+                <div class="navigation_line"></div>
+            </li>
+            <li class="navigation_block"><a href="./catalog.html" class="navigation_link">Каталог</a>
+                <div class="navigation_line"></div>
+            </li>
+            <li class="navigation_block"><a href="#footer" class="navigation_link">Контакты</a>
+                <div class="navigation_line"></div>
+            </li>
         </ul>
+        <div class="topbar_basket">
+            <span class="topbar_basket-counter">0</span>
+        </div>
     </nav>
     <header class="header">
         <div class="header_content slider">
@@ -65,25 +74,19 @@
                     <button class="card_button button">Заказать</button>
                 </div>
             </main>
-            <a href="./catalog" class="best-dishes_button button">Смотреть все</a>
+            <a href="./catalog.html" class="best-dishes_button button">Смотреть все</a>
         </section>
         <section class="description">
             <article class="description_item description_item--left">
                 <img src="./assets/images/interior.png" alt="" class="description_image">
                 <div class="description_block">
-                    <h1 class="description_heading">Lorem ipsum dolor sit amet.</h1>
-                    <p class="description_text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti,
-                        placeat cupiditate architecto nam repudiandae eum suscipit saepe, expedita quam ipsum laudantium
-                        consectetur adipisci quia quidem aliquam obcaecati, voluptatum et voluptas.</p>
+                    <p class="description_text">В нашем кафе вы можете насладиться уютной атмосферой и дружелюбным обслуживанием, если решите посетить нас лично. Мы стремимся создать идеальное место, где вы сможете расслабиться и насладиться вкусной едой в приятной компании.</p>
                 </div>
             </article>
             <article class="description_item description_item--right">
                 <img src="./assets/images/kitchen.png" alt="" class="description_image">
                 <div class="description_block">
-                    <h1 class="description_heading">Lorem ipsum dolor sit amet.</h1>
-                    <p class="description_text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti,
-                        placeat cupiditate architecto nam repudiandae eum suscipit saepe, expedita quam ipsum laudantium
-                        consectetur adipisci quia quidem aliquam obcaecati, voluptatum et voluptas.</p>
+                    <p class="description_text">Наше кафе специализируется на приготовлении питательных и вкусных блюд, которые подходят для различных диетических потребностей. Мы тщательно выбираем только высококачественные продукты и следим за тем, чтобы они были свежими и полезными.</p>
                 </div>
             </article>
         </section>
@@ -91,20 +94,21 @@
             <form action="" class="reserve_form">
                 <h1>Зарезервировать стол</h1>
                 <fieldset class="reserve_input-block">
-                    <select required name="" id="" class="reserve_select">
+                    <select required name="table" id="" class="reserve_select">
                         <option selected>Выберете стол</option>
                     </select>
-                    <input required type="text" class="reserve_input">
-                    <input required type="text" class="reserve_input">
-                    <input required type="text" class="reserve_input">
+                    <input required type="text" name="name" placeholder="Ваше имя" class="reserve_input">
+                    <input required type="text" name="number" placeholder="Ваш номер телефона" class="reserve_input">
+                    <input required type="date" name="date" placeholder="Дата визита" class="reserve_input">
+                    <input required type="time" name="time" placeholder="Время визита" class="reserve_input">
                 </fieldset>
                 <fieldset class="reserve_submit-block">
-                    <button class="reserve_button button" type="submit">Зарезервировать</button>
+                    <button class="reserve_button button" name="add_reserve" type="submit">Зарезервировать</button>
                 </fieldset>
             </form>
         </section>
     </main>
-    <footer class="footer">
+    <footer id="footer" class="footer">
         <section class="footer_map">
             <div class="footer_map-block" style="position:relative;overflow:hidden;"><a
                     href="https://yandex.ru/maps/47/nizhny-novgorod/?utm_medium=mapframe&utm_source=maps"
@@ -120,7 +124,8 @@
         <section class="footer_contacts contacts">
             <div class="contacts_item contacts_number">тел. <a href="tel:+78001001010" class="contacts_number-link">8
                     (800) 100-10-10</a></div>
-            <div class="contacts_item contacts_adress">г. Нижний Новгород, ул. Белинского, д. 41</div>
+            <div class="contacts_item contacts_adress">г. Нижний Новгород,<br class="contacts_br" /> ул. Белинского, д.
+                41</div>
             <div class="contacts_item contacts_soc">
                 <a href="https://vk.com" class="caontacts_link">
                     <img src="./assets/images/vk.png" alt="" class="contacts_image">
@@ -136,9 +141,15 @@
         <section class="footer_navigation">
             <img src="./assets/images/logo.png" alt="" class="footer_navigation-logo">
             <ul class="footer_navigation-ul navigation">
-                <li class="navigation_block"><a href="./" class="navigation_link">Главная</a><div class="navigation_line"></div></li>
-                <li class="navigation_block"><a href="./catalog" class="navigation_link">Каталог</a><div class="navigation_line"></div></li>
-                <li class="navigation_block"><a href="./contacts" class="navigation_link">Контакты</a><div class="navigation_line"></div></li>
+                <li class="navigation_block"><a href="./" class="navigation_link">Главная</a>
+                    <div class="navigation_line"></div>
+                </li>
+                <li class="navigation_block"><a href="./catalog.html" class="navigation_link">Каталог</a>
+                    <div class="navigation_line"></div>
+                </li>
+                <li class="navigation_block"><a href="#footer" class="navigation_link">Контакты</a>
+                    <div class="navigation_line"></div>
+                </li>
             </ul>
         </section>
     </footer>
