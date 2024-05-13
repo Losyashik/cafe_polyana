@@ -103,6 +103,9 @@
   .catalog_categories-list {
     display: none;
   }
+  .catalog_categories-list--active {
+    display: block;
+  }
 }
 .catalog_categories-item {
   display: block;
