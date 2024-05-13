@@ -47,9 +47,9 @@ body {
     &_basket {
         cursor: pointer;
         grid-area: basket;
-        position: relative;
-        width: 70px;
-        height: 70px;
+        position: sticky;
+        width: 50px;
+        height: 50px;
         background-image: url(./../images/basket.png);
         background-position: center;
         background-size: contain;
@@ -61,8 +61,8 @@ body {
             background-image: url(./../images/fill-basket.png);
         }
         &--fill &-counter {
-            width: 30px;
-            height: 30px;
+            width: 20px;
+            height: 20px;
             background: $focus-color;
             border-radius: 50%;
             position: absolute;
@@ -71,7 +71,7 @@ body {
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: smaller;
+            font-size: xx-small;
         }
     }
 }
