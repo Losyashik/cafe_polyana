@@ -299,14 +299,15 @@ body {
         background: url(./../images/close.png);
         background-repeat: no-repeat;
         background-size: contain;
+        cursor: pointer;
     }
     &_list {
         border: none;
         padding: 0;
         display: grid;
         height: 85vh;
-        grid-template-rows: 1fr auto;
-        &-body{
+        grid-template-rows: 1fr auto auto;
+        &-body {
             overflow: auto;
         }
         &-buttons {
@@ -324,10 +325,20 @@ body {
     &_item {
         border: 1px solid #0d0e0e;
         display: grid;
+        
         grid-template-areas:
-            "image name counter "
-            "image name delete";
-        grid-template-columns: 100px 1fr 30%;
+            "image name  name"
+            "image counter delete";
+        &--empty{
+            grid-template-areas:
+            "name name name"
+            "name name name";
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+            align-content: center;
+        }
+        grid-template-columns: 100px 1fr 40%;
         grid-template-rows: 50px 50px;
         padding: 5px 15px;
         margin: 2vh 2vw;
@@ -345,8 +356,9 @@ body {
         }
         &-name {
             grid-area: name;
-            padding: 0 1vw;
+            padding: 0 20px;
             margin: 1vh 0;
+            text-align: left;
         }
         &-delete {
             grid-area: delete;
@@ -362,8 +374,14 @@ body {
     &_data {
         display: none;
     }
+    &_total{
+        display: flex;
+        justify-content: space-between;
+        padding:0 2vw;
+    }
 }
 .counter {
+    padding: 0 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
