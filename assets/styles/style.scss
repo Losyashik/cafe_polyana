@@ -11,7 +11,7 @@ body {
     padding: 0;
 }
 .topbar {
-    z-index: 15;
+    z-index: 2;
     background: rgb(#1e140c, 90%);
     position: fixed;
     width: 100%;
@@ -177,7 +177,7 @@ body {
     background: #1e140c;
     &_map {
         position: relative;
-        z-index: 10000;
+        z-index: 1;
         border: 2px solid #1e140c;
         border-radius: 10px;
         grid-area: map;
@@ -269,5 +269,63 @@ body {
         }
         @media (max-width: 800px) {
         }
+    }
+}
+.basket {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 600px;
+    z-index: 3;
+    background: #1e140c;
+    color: #0ab554;
+    &_list {
+        border: none;
+        padding: 0;
+    }
+    &_item {
+        border: 1px solid #0ab554;
+        display: grid;
+        grid-template-areas:
+            "image name name "
+            "image counter  delete";
+
+        grid-template-columns: 150px 1fr 30%;
+        grid-template-rows: repeat(3, 50px);
+        padding: 5px 15px;
+        &-counter {
+            grid-area: counter;
+        }
+        &-image {
+            display: block;
+            grid-area: image;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        &-name {
+            grid-area: name;
+            padding: 0 1vw;
+            margin: 1vh 0;
+        }
+        &-delete {
+            grid-area: delete;
+        }
+    }
+}
+.counter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &_button {
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    &_number {
     }
 }
