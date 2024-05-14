@@ -17,3 +17,8 @@ selAll(".catalog_categories-burger, .catalog_categories-heading").forEach(
   }
 );
 
+selAll(".topbar_basket, .basket_close").forEach((item) => {
+  item.addEventListener("click", () => {
+    sel(".basket").classList.toggle("basket--active");
+  });
+});

@@ -289,24 +289,62 @@ body {
 .basket {
   position: fixed;
   top: 0;
-  right: 0;
+  right: -600px;
   height: 100vh;
   width: 600px;
   z-index: 3;
   background: #1e140c;
-  color: #0ab554;
+  color: #fff;
+  transition: right 0.3s;
+  box-shadow: inset 12px 0px 12px -12px #0ab554;
+}
+.basket--active {
+  right: 0;
+}
+.basket_heading {
+  text-align: center;
+}
+.basket_close {
+  position: absolute;
+  top: 1.5em;
+  right: 1.5em;
+  width: 3em;
+  height: 3em;
+  border: none;
+  background: url(./../images/close.png);
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 .basket_list {
   border: none;
   padding: 0;
+  display: grid;
+  height: 85vh;
+  grid-template-rows: 1fr auto;
+}
+.basket_list-body {
+  overflow: auto;
+}
+.basket_list-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2vw;
+}
+.basket_list-clear, .basket_list-next {
+  width: 45%;
+  display: inline-block;
+  margin: 2vh 0;
 }
 .basket_item {
-  border: 1px solid #0ab554;
+  border: 1px solid #0d0e0e;
   display: grid;
-  grid-template-areas: "image name name " "image counter  delete";
-  grid-template-columns: 150px 1fr 30%;
-  grid-template-rows: repeat(3, 50px);
+  grid-template-areas: "image name counter " "image name delete";
+  grid-template-columns: 100px 1fr 30%;
+  grid-template-rows: 50px 50px;
   padding: 5px 15px;
+  margin: 2vh 2vw;
+  align-items: center;
+  box-shadow: inset 0 0 5px 0 #0ab554;
 }
 .basket_item-counter {
   grid-area: counter;
@@ -326,6 +364,16 @@ body {
 }
 .basket_item-delete {
   grid-area: delete;
+  width: 1.5em;
+  height: 1.5em;
+  background: url(./../images/del.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: none;
+  margin-left: auto;
+}
+.basket_data {
+  display: none;
 }
 
 .counter {
