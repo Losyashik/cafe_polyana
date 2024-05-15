@@ -70,7 +70,7 @@
                 catalog_body.insertAdjacentHTML("beforeend", `
                     <div class="card catalog_body-item">
                         <img src="${item.image}" alt="" class="catalog_body-item-image card_image">
-                        <h4 class="catalog_body-item-heading card_heading">${item.name}Лосось с овощами на пару</h4>
+                        <h4 class="catalog_body-item-heading card_heading">${item.name}</h4>
                         <div class="catalog_body-item-description card_description">${item.description}</div>
                         <button class="card_button button" data-id="${item.id}">В корзину</button>
                     </div>
@@ -98,7 +98,8 @@
                 `);
 
         });
-        renderCatalogList(0);
+        
+        renderCatalogList(localStorage.getItem("polPage"));
     </script>
 </body>
 

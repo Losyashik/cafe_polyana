@@ -87,7 +87,7 @@ require_once("./assets/components/header.php");
                 </select>
                 <input required type="text" name="name" placeholder="Ваше имя" class="reserve_input">
                 <input required type="text" name="number" placeholder="Ваш номер телефона" class="reserve_input">
-                <input required type="date" name="date" placeholder="Дата визита" class="reserve_input">
+                <input required type="date" name="date" min="<?= date("Y-m-d")?>" placeholder="Дата визита" class="reserve_input">
                 <input required type="time" name="time" placeholder="Время визита" class="reserve_input">
             </fieldset>
             <fieldset class="reserve_submit-block">
