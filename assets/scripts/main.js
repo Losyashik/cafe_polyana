@@ -17,3 +17,4 @@ document.querySelectorAll(".topbar_basket, .basket_close").forEach((item) => {
     document.querySelector(".basket").classList.toggle("basket--active");
   });
 });
+renderList();

@@ -1,26 +1,11 @@
-let productList;
-window.onload = () => {
-    productList = [{
-        id: 1,
-        image: "./assets/images/best1.png",
-        name: "Креветки в чесночном соусе с рисом",
-        count: 1,
-        price: 2500
-
-    },
-    {
-        id: 2,
-        image: "./assets/images/best1.png",
-        name: "Креветки в чесночном соусе с рисом",
-        count: 1,
-        price: 2500
-
-    }
-    ];
-    renderList();
-}
+let productList = [];
 async function addProduct(e) {
-    productList.push(await fetch("./backend/dataProductBasket.php?id=" + e.currentTarget.dataset.id).then(text => { return text.json() }))
+    let id = e.currentTarget.dataset.id;
+    let testArr = productList.filter(i => i.id == id)
+    if (testArr.length)
+        productList[productList.indexOf(testArr[0])].count++;
+    else
+        productList.push(await fetch("./backend/dataProductBasket.php?id=" + id).then(text => text.json()).then(data => { return data }))
     renderList();
 }
 document.querySelectorAll(".card_button").forEach(item => {
@@ -54,12 +39,19 @@ function addListeners() {
 }
 function renderList() {
     let body = document.querySelector(".basket-list-body");
-    let sum_block = document.querySelector(".basket_total-summ span");
+    let sumBlock = document.querySelector(".basket_total-summ span");
+    let basketIcon = document.querySelector(".topbar_basket");
+    let countBlock = document.querySelector(".topbar_basket-counter");
+    let count = 0;
     let sum = 0;
     if (productList.length) {
         body.innerHTML = "";
+        if (!basketIcon.classList.contains("topbar_basket--fill"))
+            basketIcon.classList.add("topbar_basket--fill");
     }
     else {
+        if (basketIcon.classList.contains("topbar_basket--fill"))
+            basketIcon.classList.remove("topbar_basket--fill");
         body.innerHTML = `
         <div class="basket_list-item basket_item basket_item--empty">
             <h3 class="basket_item-name">Ваша корзина пуста</h3>
@@ -82,9 +74,11 @@ function renderList() {
         </div>
     `);
         sum += item.count * item.price;
+        count += item.count;
     })
-    sum_block.innerHTML = sum;
-    addListeners()
+    countBlock.innerHTML = count;
+    sumBlock.innerHTML = sum;
+    addListeners();
 }
 
 
