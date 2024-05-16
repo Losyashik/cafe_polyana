@@ -41,8 +41,7 @@
     <h2 class="basket_heading">Корзина</h2>
     <button type="button" class="basket_close"></button>
     <fieldset class="basket_list">
-        <div class="basket-list-body">
-
+        <div class="basket_list-body">
         </div>
         <h2 class="basket_total">Итого: <div class="basket_total-summ"><span>0</span> ₽</div>
         </h2>
@@ -55,6 +54,6 @@
     </fieldset>
     <fieldset class="basket_data"></fieldset>
 </form>
+
 <script src="./assets/scripts/basket.js"></script>
 <script src="./assets/scripts/main.js"></script>
-

@@ -1,50 +1,59 @@
-let productList = [];
+var basketProductList;
+if (localStorage.getItem("polBasket"))
+    basketProductList = JSON.parse(localStorage.getItem("polBasket"));
+else basketProductList = [];
+window.onload = () => {
+    document.querySelectorAll(".card_button").forEach(item => {
+        item.addEventListener("click", addProduct);
+    })
+    document.querySelector(".basket_list-clear").addEventListener('click', () => {
+        basketProductList = [];
+        renderList();
+    })
+}
+
+
 async function addProduct(e) {
     let id = e.currentTarget.dataset.id;
-    let testArr = productList.filter(i => i.id == id)
+    let testArr = basketProductList.filter(i => i.id == id)
     if (testArr.length)
-        productList[productList.indexOf(testArr[0])].count++;
+        basketProductList[basketProductList.indexOf(testArr[0])].count++;
     else
-        productList.push(await fetch("./backend/dataProductBasket.php?id=" + id).then(text => text.json()).then(data => { return data }))
+        basketProductList.push(await fetch("./backend/dataProductBasket.php?id=" + id).then(text => text.json()).then(data => { return data }))
     renderList();
 }
-document.querySelectorAll(".card_button").forEach(item => {
-    item.addEventListener("click", addProduct);
-})
-document.querySelector(".basket_list-clear").addEventListener('click', () => {
-    productList = [];
-    renderList();
-})
+
 function addListeners() {
     document.querySelectorAll(".basket_item-delete").forEach(item => {
         item.addEventListener("click", () => {
-            productList = productList.filter(i => item.dataset.id != i.id);
+            basketProductList = basketProductList.filter(i => item.dataset.id != i.id);
             renderList();
         })
     })
     document.querySelectorAll(".counter_plus").forEach(item => {
         item.addEventListener("click", () => {
-            productList[item.dataset.index].count++
+            basketProductList[item.dataset.index].count++
             renderList();
         })
     })
     document.querySelectorAll(".counter_minus").forEach(item => {
         item.addEventListener("click", () => {
-            if (productList[item.dataset.index].count == 1)
+            if (basketProductList[item.dataset.index].count == 1)
                 return false
-            productList[item.dataset.index].count--
+            basketProductList[item.dataset.index].count--
             renderList();
         })
     })
 }
 function renderList() {
-    let body = document.querySelector(".basket-list-body");
+    let body = document.querySelector(".basket_list-body");
     let sumBlock = document.querySelector(".basket_total-summ span");
     let basketIcon = document.querySelector(".topbar_basket");
     let countBlock = document.querySelector(".topbar_basket-counter");
     let count = 0;
     let sum = 0;
-    if (productList.length) {
+    localStorage.setItem("polBasket", JSON.stringify(basketProductList));
+    if (basketProductList.length) {
         body.innerHTML = "";
         if (!basketIcon.classList.contains("topbar_basket--fill"))
             basketIcon.classList.add("topbar_basket--fill");
@@ -58,7 +67,7 @@ function renderList() {
         </div>
         `;
     }
-    productList.forEach((item, index) => {
+    basketProductList.forEach((item, index) => {
         body.insertAdjacentHTML("beforeend", `
         <div class="basket_list-item basket_item">
             <img src="${item.image}" class="basket_item-image" />
@@ -70,6 +79,7 @@ function renderList() {
                 <div class="price">${item.price} ₽</div>
                 <button type="button" data-index="${index}" class="counter_button counter_plus button">+</button>
             </div>
+            <div class="basket_item-sum">${item.price * item.count} ₽</div>
             <button type="button" class="basket_item-delete" data-id="${item.id}"></button>
         </div>
     `);

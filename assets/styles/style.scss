@@ -138,10 +138,27 @@ body {
         border-radius: 10px 10px 0 0;
     }
     &_heading {
+        padding: 0 10px;
         text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 2.7em;
+        margin: 1vh 0;
     }
     &_description {
         padding: 0 10px 10px;
+        &-price {
+            width: 80px;
+            text-align: center;
+            float: right;
+            padding: 10px;
+            font-size: large;
+            border-radius: 10px;
+            background: $focus-color;
+            margin: 0px 0px 5px 5px;
+            color: #fff;
+        }
     }
     &_button {
         margin: 0 auto 1vh;
@@ -305,10 +322,22 @@ body {
         border: none;
         padding: 0;
         display: grid;
-        height: 85vh;
+        max-height: 85vh;
         grid-template-rows: 1fr auto auto;
         &-body {
             overflow: auto;
+            height: 75vh;
+            &::-webkit-scrollbar {
+                width: 10px;
+            }
+            &::-webkit-scrollbar-thumb {
+                background: rgb(#1e140c, 0.9);
+                border-radius: 10px;
+            }
+            &::-webkit-scrollbar-track {
+                background: $focus-color;
+                border-radius: 10px;
+            }
         }
         &-buttons {
             display: flex;
@@ -320,32 +349,45 @@ body {
             width: 45%;
             display: inline-block;
             margin: 2vh 0;
+            font-size: large;
         }
     }
     &_item {
         border: 1px solid #0d0e0e;
         display: grid;
-        
+
         grid-template-areas:
-            "image name  name"
-            "image counter delete";
-        &--empty{
+            "image name name delete"
+            "image counter sum sum";
+        &--empty {
             grid-template-areas:
-            "name name name"
-            "name name name";
+                "name name name"
+                "name name name";
             justify-content: center;
             justify-items: center;
             align-items: center;
             align-content: center;
         }
-        grid-template-columns: 100px 1fr 40%;
+        grid-template-columns: 100px 1fr 30%;
         grid-template-rows: 50px 50px;
         padding: 5px 15px;
         margin: 2vh 2vw;
         align-items: center;
         box-shadow: inset 0 0 5px 0 $focus-color;
+        border-radius: 10px;
+        // justify-items: end;
         &-counter {
             grid-area: counter;
+        }
+        &-sum {
+            grid-area: sum;
+            text-align: right;
+            font-size: large;
+            padding: 10px;
+            background: $focus-color;
+            width: max-content;
+            margin-left: auto;
+            border-radius: 10px;
         }
         &-image {
             display: block;
@@ -374,10 +416,10 @@ body {
     &_data {
         display: none;
     }
-    &_total{
+    &_total {
         display: flex;
         justify-content: space-between;
-        padding:0 2vw;
+        padding: 0 2vw;
     }
 }
 .counter {
