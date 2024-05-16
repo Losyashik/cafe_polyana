@@ -39,9 +39,10 @@
         let pages_body = document.querySelector(".catalog_pages");
         let pages_list = document.querySelector(".catalog_pages-list");
         let categories = JSON.parse('<?= json_encode(getArrayData("SELECT * FROM category")); ?>');
-        async function renderCatalogList(page) {
+        async function renderCatalogList() {
             catalog_body.innerHTML = "";
-            let id = localStorage.getItem("PolCategory");
+            let id = localStorage.getItem("polCategory");
+            let page = localStorage.getItem("polPage");
             let data = await fetch(`./backend/getProducts.php?id=${id}&page=${page}`).then(text => text.json()).then(data => {
                 return data
             });
@@ -62,7 +63,7 @@
                     item.addEventListener("click", (e) => {
                         e.preventDefault();
                         localStorage.setItem("polPage", e.currentTarget.dataset.page);
-                        renderCatalogList(localStorage.getItem("polPage"));
+                        renderCatalogList();
                     })
                 })
             } else {
@@ -86,8 +87,8 @@
             })
         }
         categories.forEach(item => {
-            if (!localStorage.getItem("PolCategory")) {
-                localStorage.setItem("PolCategory", 1);
+            if (!localStorage.getItem("polCategory")) {
+                localStorage.setItem("polCategory", 1);
             }
             catalog_categories.insertAdjacentHTML("beforeend", `
                     <li class="catalog_categories-item">
@@ -95,11 +96,21 @@
                     </li>
                 `);
 
-
         });
+        document.querySelectorAll(".catalog_categories-button").forEach(item => {
+            item.addEventListener("click", (e) => {
+                e.preventDefault();
+                document.querySelector(".catalog_categories-button--selected").classList.remove("catalog_categories-button--selected");
+                e.currentTarget.classList.add("catalog_categories-button--selected");
+                localStorage.setItem("polCategory", e.currentTarget.dataset.id);
+                localStorage.setItem("polPage", 0)
+                renderCatalogList();
+            })
+        })
+
         if (!localStorage.getItem("polPage"))
             localStorage.setItem("polPage", 0)
-        renderCatalogList(localStorage.getItem("polPage"));
+        renderCatalogList();
     </script>
 </body>
 
