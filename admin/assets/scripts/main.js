@@ -25,8 +25,8 @@ function render(type, data) {
                               <th class="table__heading-ceil">Удалить</th>
                           </tr > `;
       data.forEach((item) => {
-
-        table.insertAdjacentHTML("beforeEnd",
+        table.insertAdjacentHTML(
+          "beforeEnd",
           `
             <tr class="table__row">
               <td class="table__ceil">${item.id}</td>
@@ -41,30 +41,39 @@ function render(type, data) {
               </td>
             </tr>
           `
-        )
-      })
+        );
+      });
       break;
     }
     case "product": {
       let table = document.querySelector("#product-table");
       table.innerHTML = `<tr class="table__row">
-                              <th class="table__heading-ceil">id</th>
                               <th class="table__heading-ceil">Изображение</th>
                               <th class="table__heading-ceil">Название</th>
                               <th class="table__heading-ceil">Цена</th>
                               <th class="table__heading-ceil">Категория</th>
+                              <th class="table__heading-ceil">Главный</th>
                               <th class="table__heading-ceil">Удалить</th>
                           </tr>`;
       data.forEach((item) => {
-
-        table.insertAdjacentHTML("beforeEnd",
+        table.insertAdjacentHTML(
+          "beforeEnd",
           `
             <tr class="table__row">
-              <td class="table__ceil">${item.id}</td>
               <td class="table__ceil"><img src="./../${item.image}"/></td>
-              <td class="table__ceil">${item.name}</td>
+              <td class="table__ceil"><b>${
+                item.name + "</b><br/>Описание:<br/> " + item.description
+              }</td>
               <td class="table__ceil">${item.price}</td>
               <td class="table__ceil">${item.category}</td>
+              <td class="table__ceil">
+                <form class="table__delete-form" method="POST">
+                  <input value = "${!item.popular}" name="id" type="hidden"/>
+                  <button type="submit" name="product" value="main">${
+                    Number(item.popular)   ? "Выкл." : "Вкл."
+                  }</button>
+                </form>
+              </td>
               <td class="table__ceil">
                 <form class="table__delete-form" method="POST">
                   <input value = "${item.id}" name="id" type="hidden"/>
@@ -73,8 +82,8 @@ function render(type, data) {
               </td>
             </tr>
           `
-        )
-      })
+        );
+      });
       break;
     }
     case "category": {
@@ -87,8 +96,12 @@ function render(type, data) {
                           </tr>`;
       select.innerHTML = "<option value='' selected></option>";
       data.forEach((item) => {
-        select.insertAdjacentHTML("beforeEnd", `<option value='${item.id}'>${item.name}</option>`)
-        table.insertAdjacentHTML("beforeEnd",
+        select.insertAdjacentHTML(
+          "beforeEnd",
+          `<option value='${item.id}'>${item.name}</option>`
+        );
+        table.insertAdjacentHTML(
+          "beforeEnd",
           `
             <tr class="table__row">
               <td class="table__ceil">${item.id}</td>              
@@ -101,8 +114,8 @@ function render(type, data) {
               </td>
             </tr>
           `
-        )
-      })
+        );
+      });
       break;
     }
     case "application": {
@@ -120,18 +133,27 @@ function render(type, data) {
                               <th class="table__heading-ceil">Выполнено</th>
                           </tr>`;
       data.forEach((item) => {
-        table.insertAdjacentHTML("beforeEnd",
+        table.insertAdjacentHTML(
+          "beforeEnd",
           `
             <tr class="table__row">
               <td class="table__ceil">${item.id}</td>              
               <td class="table__ceil">${item.user}</td>
-              <td class="table__ceil">${item.product?item.product:"Не выбрано"}</td>
+              <td class="table__ceil">${
+                item.product ? item.product : "Не выбрано"
+              }</td>
               <td class="table__ceil">${item.filling}</td>
               <td class="table__ceil">${item.number}</td>
               <td class="table__ceil">${item.addres}</td>
               <td class="table__ceil">${item.date}</td>
-              <td class="table__ceil">${item.image?`<img src="./../${item.image}"/>`:"Не добавлено"}</td>
-              <td class="table__ceil">${item.description_design?item.description_design:"Нет описания"}</td>
+              <td class="table__ceil">${
+                item.image ? `<img src="./../${item.image}"/>` : "Не добавлено"
+              }</td>
+              <td class="table__ceil">${
+                item.description_design
+                  ? item.description_design
+                  : "Нет описания"
+              }</td>
               <td class="table__ceil">
                 <form class="table__delete-form" method="POST">
                   <input value = "${item.id}" name="id" type="hidden"/>
@@ -140,44 +162,54 @@ function render(type, data) {
               </td>
             </tr>
           `
-        )
-      })
+        );
+      });
       break;
     }
   }
-  document.querySelectorAll(".table__delete-form").forEach(item => {
-    item.addEventListener('submit', async e => {
+  document.querySelectorAll(".table__delete-form").forEach((item) => {
+    item.addEventListener("submit", async (e) => {
       e.preventDefault();
       let but = item.lastElementChild;
       let body = new FormData(item);
-      body.append(but.name, but.value)
-      data = await fetch('./../api/index.php', {
-        method: 'post',
-        body
-      }).then(text => text.json()).then(json => { return json })
+      body.append(but.name, but.value);
+      data = await fetch("./../backend/index.php", {
+        method: "post",
+        body,
+      })
+        .then((text) => text.json())
+        .then((json) => {
+          return json;
+        });
       render(but.name, data);
-    })
-  })
+    });
+  });
 }
 async function getRequest(type) {
   let body = new FormData();
   body.append(type, "get");
-  data = await fetch('./../api/index.php', {
-    method: 'post',
-    body
-  }).then(text => text.json()).then(json => { return json });
+  data = await fetch("./../backend/index.php", {
+    method: "post",
+    body,
+  })
+    .then((text) => text.json())
+    .then((json) => {
+      return json;
+    });
   render(type, data);
 }
 function addImage(block, input) {
-  block.innerHTML = '';
+  block.innerHTML = "";
   let images = input.files;
   [...images].forEach((file) => {
     let reader = new FileReader();
     reader.onload = function (e) {
-      block.insertAdjacentHTML('beforeEnd', `
+      block.insertAdjacentHTML(
+        "beforeEnd",
+        `
       <img src="${e.target.result}" />
       `
-      )
+      );
     };
     reader.readAsDataURL(file);
   });
@@ -193,35 +225,35 @@ document.querySelectorAll(".leftbar__link").forEach((item) => {
 
 ["dragover", "drop"].forEach(function (event) {
   document.addEventListener(event, function (evt) {
-    evt.preventDefault()
-  })
-})
+    evt.preventDefault();
+  });
+});
 document.querySelectorAll(".admin-form__input-file").forEach((item) => {
-  item.addEventListener('change', () => {
+  item.addEventListener("change", () => {
     let block = item.parentElement.firstElementChild;
     addImage(block, item);
-  })
-})
+  });
+});
 
-document.querySelectorAll(".admin-form__label-file").forEach(item => {
+document.querySelectorAll(".admin-form__label-file").forEach((item) => {
   block = item.firstElementChild;
   ["dragstart", "dragenter"].forEach((e) => {
     document.addEventListener(e, () => {
-      block.classList.add("drag")
-    })
+      block.classList.add("drag");
+    });
     item.addEventListener(e, () => {
-      block.classList.add("drag")
-    })
+      block.classList.add("drag");
+    });
   });
   ["dragleave", "dragend", "drop"].forEach((e) => {
     document.addEventListener(e, () => {
       block.classList.remove("drag");
-    })
+    });
     item.addEventListener(e, () => {
-      block.classList.remove("drag")
-    })
+      block.classList.remove("drag");
+    });
   });
-  item.addEventListener("drop", e => {
+  item.addEventListener("drop", (e) => {
     console.log("drop");
     let inp = item.lastElementChild;
     let inpFileList = inp.files;
@@ -234,21 +266,25 @@ document.querySelectorAll(".admin-form__label-file").forEach(item => {
       newFileList.items.add(file);
     });
     inp.files = newFileList.files;
-    addImage(block, inp)
-  })
-})
-document.querySelectorAll(".admin-form").forEach(item => {
-  item.addEventListener("submit", async e => {
+    addImage(block, inp);
+  });
+});
+document.querySelectorAll(".admin-form").forEach((item) => {
+  item.addEventListener("submit", async (e) => {
     e.preventDefault();
     let but = item.lastElementChild;
     let body = new FormData(item);
-    body.append(but.name, but.value)
-    data = await fetch('./../api/index.php', {
-      method: 'post',
-      body
-    }).then(text => text.json()).then(json => { return json })
+    body.append(but.name, but.value);
+    data = await fetch("./../backend/index.php", {
+      method: "post",
+      body,
+    })
+      .then((text) => text.json())
+      .then((json) => {
+        return json;
+      });
     render(but.name, data);
     item.querySelector(".admin-form__label-content").innerHTML = "";
-    item.reset()
-  })
-})
+    item.reset();
+  });
+});

@@ -3,9 +3,9 @@
 
 <head>
     <script>
-        if (!localStorage.getItem("user-cake") || !JSON.parse(localStorage.getItem("user-cake")).admin) {
-            window.location = "./../";
-        }
+        // if (!localStorage.getItem("user-cake") || !JSON.parse(localStorage.getItem("user-cake")).admin) {
+        //     window.location = "./../";
+        // }
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,8 +35,7 @@
                         <input type="text" name="name" id="category_name" class="admin-form__input" required>
                         <label for="category_name" class="admin-form__label-input">Название категории</label>
                     </div>
-                    <button class="admin-form__button-submit" type="submit" name="category"
-                        value="add">Добавить</button>
+                    <button class="admin-form__button-submit" type="submit" name="category" value="add">Добавить</button>
                 </form>
                 <article class="section__list section__with-table">
                     <table id="category-table" class="section__table table"></table>
@@ -60,15 +59,19 @@
                     </div>
                     <div class="admin-form__block-input">
                         <div class="admin-form__border-block"></div>
-                        <input type="number" name="price" id="producrt_price" class="admin-form__input" min="1"
-                            required>
+                        <input type="number" name="price" id="producrt_price" class="admin-form__input" min="1" required>
                         <label for="producrt_price" class="admin-form__label-input">Цена</label>
+                    </div>
+                    <div class="admin-form__block-input">
+                        <div class="admin-form__border-block"></div>
+                        <textarea type="text" name="description" id="fillings_description" class="admin-form__input" required></textarea>
+                        <label for="fillings_description" class="admin-form__label-input">Описание</label>
                     </div>
                     <label for="product_image" class="admin-form__label-file">
                         <div class="admin-form__label-content"></div>
-                        <input class="admin-form__input-file" type="file" name="image" id="product_image"
-                            accept="image/*">
+                        <input class="admin-form__input-file" type="file" name="image" id="product_image" accept="image/*">
                     </label>
+
                     <button class="admin-form__button-submit" type="submit" name="product" value="add">Добавить</button>
                 </form>
                 <article class="section__list section__with-table">
@@ -88,15 +91,13 @@
                     </div>
                     <div class="admin-form__block-input">
                         <div class="admin-form__border-block"></div>
-                        <textarea type="text" name="description" id="fillings_description" class="admin-form__input"
-                            required></textarea>
+                        <textarea type="text" name="description" id="fillings_description" class="admin-form__input" required></textarea>
                         <label for="fillings_description" class="admin-form__label-input">Описание начинки</label>
                     </div>
 
                     <label for="filling_image" class="admin-form__label-file">
                         <div class="admin-form__label-content"></div>
-                        <input class="admin-form__input-file" type="file" name="image" id="filling_image"
-                            accept="image/*">
+                        <input class="admin-form__input-file" type="file" name="image" id="filling_image" accept="image/*">
                     </label>
                     <button class="admin-form__button-submit" type="submit" name="filling" value="add">Добавить</button>
                 </form>
@@ -108,7 +109,7 @@
         </section>
         <section class="section" id="applications">
             <h1 class="section__heading">Заказы</h1>
-            <main class="section__body" >
+            <main class="section__body">
                 <article class="section__with-table" id="application">
                     <table id="application-table" class="section__table table"></table>
                 </article>
