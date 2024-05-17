@@ -251,10 +251,15 @@ body {
   -o-object-fit: contain;
      object-fit: contain;
 }
+@media (max-width: 800px) {
+  .footer_navigation-logo {
+    width: 75%;
+  }
+}
 .footer_navigation-ul {
   flex-direction: column;
 }
-@media (max-width: 1200px) {
+@media (max-width: 800px) {
   .footer_navigation-ul {
     flex-direction: row;
   }
@@ -315,6 +320,11 @@ body {
   transition: right 0.3s;
   box-shadow: inset 12px 0px 12px -12px #0ab554;
 }
+@media (max-width: 600px) {
+  .basket {
+    width: 100%;
+  }
+}
 .basket--active {
   right: 0;
 }
@@ -336,9 +346,13 @@ body {
 .basket_list {
   border: none;
   padding: 0;
-  display: grid;
-  max-height: 85vh;
-  grid-template-rows: 1fr auto auto;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 90vh;
+}
+.basket_list--active {
+  display: flex;
 }
 .basket_list-body {
   overflow: auto;
@@ -424,12 +438,71 @@ body {
   margin-left: auto;
 }
 .basket_data {
+  border: none;
   display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 90vh;
+}
+.basket_data--active {
+  display: flex;
+}
+.basket_form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.basket_form-input, .basket_form-textarea, .basket_form-radio {
+  width: 80%;
+  padding: 10px;
+  font-size: large;
+  resize: none;
+  margin: 1vh;
+  box-sizing: border-box;
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px 0 #0ab554;
+  border: none;
+}
+.basket_form-textarea {
+  height: 5em;
 }
 .basket_total {
   display: flex;
   justify-content: space-between;
   padding: 0 2vw;
+}
+
+.radio-button {
+  padding: 0;
+  border-radius: 10px;
+}
+.radio-button_block {
+  box-shadow: inset 0 0 5px 0 #0ab554;
+  border-radius: 0 0 10px 10px;
+  display: flex;
+  flex-direction: column;
+}
+.radio-button_heading {
+  background: #0ab554;
+  margin: 0;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  border-radius: 10px 10px 0 0;
+}
+.radio-button_label {
+  padding: 10px;
+}
+.radio-button_label--checked {
+  background: #0ab554;
+  box-shadow: inset 0 0 5px 0 #0d0e0e;
+}
+.radio-button_label--checked:last-child {
+  border-radius: 0 0 10px 10px;
+}
+.radio-button_input {
+  display: none;
 }
 
 .counter {

@@ -47,7 +47,7 @@ function addListeners() {
 }
 function renderList() {
     let body = document.querySelector(".basket_list-body");
-    let sumBlock = document.querySelector(".basket_total-summ span");
+    let sumBlocks = document.querySelectorAll(".basket_total-summ span");
     let basketIcon = document.querySelector(".topbar_basket");
     let countBlock = document.querySelector(".topbar_basket-counter");
     let count = 0;
@@ -87,8 +87,42 @@ function renderList() {
         count += item.count;
     })
     countBlock.innerHTML = count;
-    sumBlock.innerHTML = sum;
+    sumBlocks.forEach(item => {
+        item.innerHTML = sum;
+    })
     addListeners();
 }
 
+document.querySelector(".basket_list-next").addEventListener("click", () => {
+    if (!basketProductList.length)
+        return false;
+    document.querySelector(".basket_list").classList.remove("basket_list--active")
+    document.querySelector(".basket_data").classList.add("basket_data--active")
+})
+document.querySelector(".basket_list-prev").addEventListener("click", () => {
+    document.querySelector(".basket_list").classList.add("basket_list--active")
+    document.querySelector(".basket_data").classList.remove("basket_data--active")
+})
+document.querySelectorAll(".radio-button_input").forEach(item => {
+    item.addEventListener("change", () => {
+        document.querySelector(".radio-button_label--checked").classList.remove("radio-button_label--checked")
+        item.parentElement.classList.add("radio-button_label--checked");
+    })
+})
 
+document.querySelector(".basket").addEventListener("submit", async e => {
+    e.preventDefault();
+    let body = new FormData(e.currentTarget);
+    body.append("productList", JSON.stringify(basketProductList));
+    let resp = await fetch("./backend/addApp.php", {
+        method: 'post',
+        body
+    })
+    document.querySelector(".basket_list").classList.add("basket_list--active")
+    document.querySelector(".basket_data").classList.remove("basket_data--active")
+    document.querySelector(".basket").classList.toggle("basket--active");
+    basketProductList = [];
+    renderList();
+    alert("Спасибо за заказ!\nС вами свяжется менеджер для подтверждения заказа")
+
+})

@@ -40,19 +40,58 @@
 <form class="basket">
     <h2 class="basket_heading">Корзина</h2>
     <button type="button" class="basket_close"></button>
-    <fieldset class="basket_list">
+    <fieldset class="basket_list basket_list--active">
         <div class="basket_list-body">
         </div>
-        <h2 class="basket_total">Итого: <div class="basket_total-summ"><span>0</span> ₽</div>
-        </h2>
-        <div class="basket_list-buttons">
-            <button type="button" class="button basket_list-clear">Очистить корзину</button>
-            <button type="button" class="button basket_list-next">Оформить заказ</button>
+        <footer class="basket_footer">
 
-        </div>
+            <h2 class="basket_total">Итого:
+                <div class="basket_total-summ"><span>0</span> ₽</div>
+            </h2>
+            <div class="basket_list-buttons">
+                <button type="button" class="button basket_list-clear">Очистить корзину</button>
+                <button type="button" class="button basket_list-next">Оформить заказ</button>
+            </div>
+        </footer>
 
     </fieldset>
-    <fieldset class="basket_data"></fieldset>
+    <fieldset class="basket_data">
+        <div class="basket_form">
+            <input required name="name" class="basket_form-input" placeholder="Ваше имя" type="text">
+            <input required name="number" class="basket_form-input" placeholder="Ваш номер" type="text">
+
+            <div class="basket_form-radio radio-button">
+                <h4 class="radio-button_heading">Способ оплаты</h4>
+                <div class="radio-button_block">
+
+                    <label  class="radio-button_label radio-button_label--checked">
+                        Наличными
+                        <input required type="radio" class="radio-button_input" checked value="1" name="payment">
+                    </label>
+                    <label  class="radio-button_label ">
+                        Банковской картой
+                        <input required type="radio" class="radio-button_input" value="2" name="payment">
+                    </label>
+                    <label  class="radio-button_label ">
+                        Системой быстрых платежей
+                        <input required type="radio" class="radio-button_input" value="3" name="payment">
+                    </label>
+                </div>
+            </div>
+
+            <textarea required name="addres" class="basket_form-textarea" placeholder="Ваш адрес"></textarea>
+            <button type="submit" class="button basket_list-submit">Оформить заказ</button>
+        </div>
+        <footer class="basket_footer">
+
+            <h2 class="basket_total">Итого:
+                <div class="basket_total-summ"><span>0</span> ₽</div>
+            </h2>
+            <div class="basket_list-buttons">
+                <button type="button" class="button basket_list-prev">Назад</button>
+            </div>
+        </footer>
+    </fieldset>
 </form>
 
 <script src="./assets/scripts/basket.js"></script>
