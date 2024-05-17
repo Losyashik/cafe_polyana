@@ -342,7 +342,7 @@ body {
 }
 .basket_list-body {
   overflow: auto;
-  height: 75vh;
+  height: 60vh;
 }
 .basket_list-body::-webkit-scrollbar {
   width: 10px;

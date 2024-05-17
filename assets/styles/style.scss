@@ -326,7 +326,7 @@ body {
         grid-template-rows: 1fr auto auto;
         &-body {
             overflow: auto;
-            height: 75vh;
+            height: 60vh;
             &::-webkit-scrollbar {
                 width: 10px;
             }

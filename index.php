@@ -28,35 +28,20 @@ require_once("./assets/components/header.php");
     <section class="best-dishes">
         <h1 class="best-dishes_heading">Наши лучшие блюда</h1>
         <main class="best-dishes_body">
-            <div class="best-dishes_item card">
-                <img src="./assets/images/best1.png" alt="" class="best-dishes_item-image card_image">
-                <h4 class="best-dishes_item-heading card_heading">Креветки в чесночном соусе с рисом</h4>
-                <div class="best-dishes_item-description card_description">Lorem ipsum dolor sit, amet consectetur
-                    adipisicing elit. Voluptatum iste numquam iure neque culpa nulla!</div>
-                <button class="card_button button" data-id="1">В корзину</button>
-            </div>
-            <div class="best-dishes_item card">
-                <img src="./assets/images/best2.png" alt="" class="best-dishes_item-image card_image">
-                <h4 class="best-dishes_item-heading card_heading">Лосось с овощами на пару</h4>
-                <div class="best-dishes_item-description card_description">Lorem ipsum dolor sit, amet consectetur
-                    adipisicing elit. Voluptatum iste numquam iure neque culpa nulla!</div>
-                <button class="card_button button" data-id="2">В корзину</button>
-            </div>
-            <div class="best-dishes_item card">
-                <img src="./assets/images/best3.png" alt="" class="best-dishes_item-image card_image">
-                <h4 class="best-dishes_item-heading card_heading">Греческий салат</h4>
-                <div class="best-dishes_item-description card_description">Lorem ipsum dolor sit, amet consectetur
-                    adipisicing elit. Voluptatum iste numquam iure neque culpa nulla!</div>
-                <button class="card_button button">В корзину</button>
+            <?php
+            foreach (getArrayData("SELECT * FROM product WHERE popular = 1 LIMIT 4") as $item) {
+            ?>
 
-            </div>
-            <div class="best-dishes_item card">
-                <img src="./assets/images/best4.png" alt="" class="best-dishes_item-image card_image">
-                <h4 class="best-dishes_item-heading card_heading">Говяжий стейк с овощами на гриле</h4>
-                <div class="best-dishes_item-description card_description">Lorem ipsum dolor sit, amet consectetur
-                    adipisicing elit. Voluptatum iste numquam iure neque culpa nulla!</div>
-                <button class="card_button button">В корзину</button>
-            </div>
+                <div class="best-dishes_item card">
+                    <img src="<?= $item['image'] ?>" alt="" class="best-dishes_item-image card_image">
+                    <h4 class="best-dishes_item-heading card_heading"><?= $item['name'] ?></h4>
+                    <div class="best-dishes_item-description card_description">
+                        <div class="card_description-price"><?= $item['price'] ?> ₽</div><?= $item['description'] ?>
+                    </div>
+                    <button class="card_button button" data-id="<?= $item['id'] ?>">В корзину</button>
+                </div>
+
+            <?php } ?>
         </main>
         <a href="./catalog.php" class="best-dishes_button button">Смотреть все</a>
     </section>
@@ -79,15 +64,18 @@ require_once("./assets/components/header.php");
         </article>
     </section>
     <section class="reserve">
-        <form action="" class="reserve_form">
+        <form action="./backend/addReserve.php" method="POST" class="reserve_form">
             <h1>Зарезервировать стол</h1>
             <fieldset class="reserve_input-block">
                 <select required name="table" id="" class="reserve_select">
                     <option selected>Выберете стол</option>
+                    <?php foreach (getArrayData("SELECT * FROM tables") as $item) { ?>
+                        <option value="<?= $item['id'] ?>">Столик №<?= $item['number'] ?></option>
+                    <?php } ?>
                 </select>
                 <input required type="text" name="name" placeholder="Ваше имя" class="reserve_input">
                 <input required type="text" name="number" placeholder="Ваш номер телефона" class="reserve_input">
-                <input required type="date" name="date" min="<?= date("Y-m-d")?>" placeholder="Дата визита" class="reserve_input">
+                <input required type="date" name="date" min="<?= date("Y-m-d") ?>" placeholder="Дата визита" class="reserve_input">
                 <input required type="time" name="time" placeholder="Время визита" class="reserve_input">
             </fieldset>
             <fieldset class="reserve_submit-block">
