@@ -24,23 +24,25 @@ if (isset($_POST['category'])) {
             }
     }
 }
-if (isset($_POST['filling'])) {
-    $obj = new fillingController();
-    switch ($_POST['filling']) {
+if (isset($_POST['table'])) {
+    switch ($_POST['table']) {
         case "get": {
-                echo json_encode(getArrayData("SELECT * FROM `product`"));
+                echo (json_encode(getArrayData("SELECT * FROM tables")));
                 break;
             }
         case "add": {
-
+                request("INSERT INTO `tables`(`number`) VALUES ('{$_POST['name']}')");
+                echo (json_encode(getArrayData("SELECT * FROM tables")));
                 break;
             }
         case "delete": {
-                echo ($obj->fillingDelete($_POST));
+                request("DELETE FROM tables WHERE id = '{$_POST['id']}'");
+                echo (json_encode(getArrayData("SELECT * FROM tables")));
                 break;
             }
     }
 }
+
 if (isset($_POST['product'])) {
     switch ($_POST['product']) {
         case "get": {
@@ -55,7 +57,7 @@ if (isset($_POST['product'])) {
                 $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
                 $path = "./assets/images/products/" . convertRUcharacters($name) . ".$ext";
                 if (move_uploaded_file($_FILES['image']['tmp_name'], "./." . $path)) {
-                    request ("INSERT INTO `product`(`id_category`, `name`, `image`, `description`, `price`) VALUES ('$category','$name','$path','$description','$price')");
+                    request("INSERT INTO `product`(`id_category`, `name`, `image`, `description`, `price`) VALUES ('$category','$name','$path','$description','$price')");
                     echo json_encode(getArrayData("SELECT *, category.name as category, product.name as name, product.id as id FROM `product`, `category` WHERE `id_category` = `category`.`id`"));
                 } else {
                     throw new Exception("Файл не загружен");
@@ -63,7 +65,8 @@ if (isset($_POST['product'])) {
                 break;
             }
         case "delete": {
-
+                request("DELETE FROM tables WHERE id = '{$_POST['id']}'");
+                echo json_encode(getArrayData("SELECT *, category.name as category, product.name as name,    product.id as id FROM `product`, `category` WHERE `id_category` = `category`.`id`"));
                 break;
             }
         case 'update':
@@ -73,15 +76,31 @@ if (isset($_POST['product'])) {
 }
 if (isset($_POST['application'])) {
     switch ($_POST['application']) {
-        case "add": {
-
-                break;
-            }
         case "get": {
+                $data = [];
+                $res = request("SELECT * FROM `application` WHERE compleat=0");
+                while ($row = $res->fetch_assoc()) {
+                    foreach (getArrayData("SELECT * FROM product_list WHERE id_application = {$row['id']}") as $item) {
+                        $item['name'] = getArrayData("SELECT name FROM product WHERE id = {$item['id_product']}")[0]['name'];
+                        $row['productList'][] = $item;
+                    }
+                    $data[] = $row;
+                }
+                echo json_encode($data);
                 break;
             }
         case "compleat": {
-
+                request("UPDATE `application` SET `compleat`='1' WHERE `id`='{$_POST['id']}'");
+                $data = [];
+                $res = request("SELECT * FROM `application` WHERE compleat=0");
+                while ($row = $res->fetch_assoc()) {
+                    foreach (getArrayData("SELECT * FROM product_list WHERE id_application = {$row['id']}") as $item) {
+                        $item['name'] = getArrayData("SELECT name FROM product WHERE id = {$item['id_product']}")[0]['name'];
+                        $row['productList'][] = $item;
+                    }
+                    $data[] = $row;
+                }
+                echo json_encode($data);
                 break;
             }
     }
@@ -89,11 +108,12 @@ if (isset($_POST['application'])) {
 if (isset($_POST['reserve'])) {
     switch ($_POST['reserve']) {
         case "get": {
-
+                echo json_encode(getArrayData("SELECT *,`reserve`.`id` as `id`,`reserve`.`number` as `number`, `tables`.`number` as `table` FROM `reserve`,`tables` WHERE compleat=0 AND `tables`.`id` = id_table"));
                 break;
             }
         case "compleat": {
-
+                request("UPDATE `reserve` SET `compleat`='1' WHERE `id`='{$_POST['id']}'");
+                echo json_encode(getArrayData("SELECT *,`reserve`.`id` as `id`,`reserve`.`number` as `number`, `tables`.`number` as `table` FROM `reserve`,`tables` WHERE compleat=0 AND `tables`.`id` = id_table"));
                 break;
             }
     }

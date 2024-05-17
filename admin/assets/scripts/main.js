@@ -7,21 +7,20 @@ window.onload = () => {
       item.classList.add("active");
     }
   });
-  getRequest("filling");
+  getRequest("table");
   getRequest("product");
   getRequest("category");
   getRequest("application");
+  getRequest("reserve");
 };
 
 function render(type, data) {
   switch (type) {
-    case "filling": {
-      let table = document.querySelector("#fillings-table");
+    case "table": {
+      let table = document.querySelector("#tables-table");
       table.innerHTML = `<tr class="table__row">
                               <th class="table__heading-ceil" > id</th >
-                              <th class="table__heading-ceil">Изображение</th>
-                              <th class="table__heading-ceil">Название</th>
-                              <th class="table__heading-ceil">Описание</th>
+                              <th class="table__heading-ceil">Номер</th>
                               <th class="table__heading-ceil">Удалить</th>
                           </tr > `;
       data.forEach((item) => {
@@ -30,13 +29,12 @@ function render(type, data) {
           `
             <tr class="table__row">
               <td class="table__ceil">${item.id}</td>
-              <td class="table__ceil"><img src="./../${item.image}"/></td>
-              <td class="table__ceil">${item.name}</td>
-              <td class="table__ceil">${item.description}</td>
+
+              <td class="table__ceil">${item.number}</td>
               <td class="table__ceil">
                 <form class="table__delete-form" method="POST">
                   <input value = "${item.id}" name="id" type="hidden"/>
-                  <button type="submit" name="filling" value="delete">Удалить</button>
+                  <button type="submit" name="table" value="delete">Удалить</button>
                 </form>
               </td>
             </tr>
@@ -61,17 +59,15 @@ function render(type, data) {
           `
             <tr class="table__row">
               <td class="table__ceil"><img src="./../${item.image}"/></td>
-              <td class="table__ceil"><b>${
-                item.name + "</b><br/>Описание:<br/> " + item.description
-              }</td>
+              <td class="table__ceil"><b>${item.name + "</b><br/>Описание:<br/> " + item.description
+          }</td>
               <td class="table__ceil">${item.price}</td>
               <td class="table__ceil">${item.category}</td>
               <td class="table__ceil">
                 <form class="table__delete-form" method="POST">
                   <input value = "${!item.popular}" name="id" type="hidden"/>
-                  <button type="submit" name="product" value="main">${
-                    Number(item.popular)   ? "Выкл." : "Вкл."
-                  }</button>
+                  <button type="submit" name="product" value="main">${Number(item.popular) ? "Выкл." : "Вкл."
+          }</button>
                 </form>
               </td>
               <td class="table__ceil">
@@ -123,37 +119,28 @@ function render(type, data) {
       table.innerHTML = `<tr class="table__row">
                               <th class="table__heading-ceil">id</th>
                               <th class="table__heading-ceil">Имя заказчика</th>
-                              <th class="table__heading-ceil">Название торта</th>
-                              <th class="table__heading-ceil">Начинка</th>
                               <th class="table__heading-ceil">Номер телефона</th>
                               <th class="table__heading-ceil">Адрес</th>
-                              <th class="table__heading-ceil">Выбраная дата</th>
-                              <th class="table__heading-ceil">Изображение дизайна</th>
-                              <th class="table__heading-ceil">Описание дизайна</th>
+                              <th class="table__heading-ceil">Cпособ оплаты</th>
+                              <th class="table__heading-ceil">Товары</th>
                               <th class="table__heading-ceil">Выполнено</th>
                           </tr>`;
       data.forEach((item) => {
+        let products = "";
+        item.productList.forEach(p => {
+          products += `<div>${p.name}</div>`;
+        })
         table.insertAdjacentHTML(
           "beforeEnd",
           `
             <tr class="table__row">
               <td class="table__ceil">${item.id}</td>              
-              <td class="table__ceil">${item.user}</td>
-              <td class="table__ceil">${
-                item.product ? item.product : "Не выбрано"
-              }</td>
-              <td class="table__ceil">${item.filling}</td>
+              <td class="table__ceil">${item.name}</td>
+     
               <td class="table__ceil">${item.number}</td>
               <td class="table__ceil">${item.addres}</td>
-              <td class="table__ceil">${item.date}</td>
-              <td class="table__ceil">${
-                item.image ? `<img src="./../${item.image}"/>` : "Не добавлено"
-              }</td>
-              <td class="table__ceil">${
-                item.description_design
-                  ? item.description_design
-                  : "Нет описания"
-              }</td>
+              <td class="table__ceil">${Number(item.payment) == 1 ? "Наличными" : Number(item.payment) == 2 ? "Банковская карта" : "СБП"}</td>
+              <td class="table__ceil">${products}</td>
               <td class="table__ceil">
                 <form class="table__delete-form" method="POST">
                   <input value = "${item.id}" name="id" type="hidden"/>
@@ -164,6 +151,40 @@ function render(type, data) {
           `
         );
       });
+      break;
+    }
+    case "reserve": {
+      let table = document.querySelector("#reserve-table");
+      table.innerHTML = `<tr class="table__row">
+                              <th class="table__heading-ceil">id</th>
+                              <th class="table__heading-ceil">Имя</th>
+                              <th class="table__heading-ceil">Стол</th>
+                              <th class="table__heading-ceil">Номер телефона</th>
+                              <th class="table__heading-ceil">Дата</th>
+                              <th class="table__heading-ceil">Время</th>
+                              <th class="table__heading-ceil">Выполнено</th>
+                          </tr>`;
+      data.forEach((item) => {
+        table.insertAdjacentHTML(
+          "beforeEnd",
+          `
+            <tr class="table__row">
+              <td class="table__ceil">${item.id}</td>              
+              <td class="table__ceil">${item.name}</td>
+              <td class="table__ceil">Стол №${item.table}</td>
+              <td class="table__ceil">${item.number}</td>
+              <td class="table__ceil">${item.date}</td>
+              <td class="table__ceil">${item.time}</td>
+              <td class="table__ceil">
+                <form class="table__delete-form" method="POST">
+                  <input value = "${item.id}" name="id" type="hidden"/>
+                  <button type="submit" name="reserve" value="compleat">Выполнено</button>
+                </form>
+              </td>
+            </tr>
+          `
+        );
+      })
       break;
     }
   }

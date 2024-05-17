@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Май 15 2024 г., 03:51
+-- Время создания: Май 18 2024 г., 01:22
 -- Версия сервера: 10.4.28-MariaDB
 -- Версия PHP: 8.2.4
 
@@ -34,7 +34,8 @@ CREATE TABLE `application` (
   `name` text NOT NULL,
   `number` varchar(20) NOT NULL,
   `addres` text NOT NULL,
-  `payment` tinyblob NOT NULL
+  `payment` tinyint(10) NOT NULL,
+  `compleat` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -48,16 +49,6 @@ CREATE TABLE `category` (
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
--- Дамп данных таблицы `category`
---
-
-INSERT INTO `category` (`id`, `name`) VALUES
-(1, 'Гарниры'),
-(2, 'Мясо'),
-(3, 'Рыба'),
-(4, 'Салаты');
-
 -- --------------------------------------------------------
 
 --
@@ -68,31 +59,11 @@ CREATE TABLE `product` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `id_category` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
+  `image` text NOT NULL,
   `description` varchar(255) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `popular` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Дамп данных таблицы `product`
---
-
-INSERT INTO `product` (`id`, `id_category`, `name`, `description`, `price`, `popular`) VALUES
-(1, 1, 'Киноа с овощами', 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum iste numquam iure neque culpa nulla!', 1300.00, 0),
-(2, 1, 'Картофельное пюре с кресс-салатом\r\n', 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum iste numquam iure neque culpa nulla!', 1200.00, 0),
-(3, 1, 'Кус-кус с жареными овощами', 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum iste numquam iure neque culpa nulla!', 1500.00, 0),
-(4, 1, 'Картофельные ломтики с розмарином', 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum iste numquam iure neque culpa nulla!', 1000.00, 0),
-(5, 1, 'Цветная капуста тушеная с кунжутом', 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum iste numquam iure neque culpa nulla!', 450.00, 0),
-(6, 1, 'Чечевица с карамелизированным луком', 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum iste numquam iure neque culpa nulla!', 820.00, 0),
-(7, 1, 'Рисовая лапша с соевым соусом', 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum iste numquam iure neque culpa nulla!', 560.00, 0),
-(8, 1, 'Мексиканский рис с фасолью и кукурузой', 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum iste numquam iure neque culpa nulla!', 920.00, 0),
-(9, 1, 'Пюре из сладкого картофеля', 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum iste numquam iure neque culpa nulla!', 500.00, 0),
-(10, 1, 'Овощной рататуй', 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum iste numquam iure neque culpa nulla!', 700.00, 0),
-(11, 1, 'Бобы с томатным соусом', 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum iste numquam iure neque culpa nulla!', 900.00, 0),
-(12, 1, 'Жареный батат с медом и горчицей', 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum iste numquam iure neque culpa nulla!', 680.00, 0),
-(13, 1, 'Паста из цельнозерновой муки с томатным соусом', 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum iste numquam iure neque culpa nulla!', 920.00, 0),
-(14, 1, 'Гречка с шампиньонами и зеленью', 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum iste numquam iure neque culpa nulla!', 580.00, 0),
-(15, 1, 'Булгур с томатами и огурцом', 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum iste numquam iure neque culpa nulla!', 1300.00, 0);
 
 -- --------------------------------------------------------
 
@@ -111,16 +82,17 @@ CREATE TABLE `product_list` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `resrerve`
+-- Структура таблицы `reserve`
 --
 
-CREATE TABLE `resrerve` (
+CREATE TABLE `reserve` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
   `number` varchar(20) NOT NULL,
   `id_table` bigint(20) UNSIGNED NOT NULL,
   `date` date NOT NULL,
-  `time` time NOT NULL
+  `time` time NOT NULL,
+  `compleat` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -166,9 +138,9 @@ ALTER TABLE `product_list`
   ADD KEY `id_product` (`id_product`);
 
 --
--- Индексы таблицы `resrerve`
+-- Индексы таблицы `reserve`
 --
-ALTER TABLE `resrerve`
+ALTER TABLE `reserve`
   ADD UNIQUE KEY `id` (`id`),
   ADD KEY `id_table` (`id_table`);
 
@@ -192,13 +164,13 @@ ALTER TABLE `application`
 -- AUTO_INCREMENT для таблицы `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `product_list`
@@ -207,9 +179,9 @@ ALTER TABLE `product_list`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT для таблицы `resrerve`
+-- AUTO_INCREMENT для таблицы `reserve`
 --
-ALTER TABLE `resrerve`
+ALTER TABLE `reserve`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -236,10 +208,10 @@ ALTER TABLE `product_list`
   ADD CONSTRAINT `product_list_ibfk_2` FOREIGN KEY (`id_product`) REFERENCES `product` (`id`);
 
 --
--- Ограничения внешнего ключа таблицы `resrerve`
+-- Ограничения внешнего ключа таблицы `reserve`
 --
-ALTER TABLE `resrerve`
-  ADD CONSTRAINT `resrerve_ibfk_1` FOREIGN KEY (`id_table`) REFERENCES `tables` (`id`);
+ALTER TABLE `reserve`
+  ADD CONSTRAINT `reserve_ibfk_1` FOREIGN KEY (`id_table`) REFERENCES `tables` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

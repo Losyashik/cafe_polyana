@@ -233,7 +233,7 @@ body {
 .section__with-table {
   max-height: 90vh;
 }
-.section__with-table#application {
+.section__with-table#application, .section__with-table#reserve {
   width: 100%;
 }
 .section__heading {

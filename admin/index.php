@@ -19,8 +19,9 @@
         <ul class="leftbar__ul">
             <li class="leftbar__li"><a href="#category" class="leftbar__link">Категории</a></li>
             <li class="leftbar__li"><a href="#products" class="leftbar__link">Товары</a></li>
-            <li class="leftbar__li"><a href="#fillings" class="leftbar__link">Начинки</a></li>
+            <li class="leftbar__li"><a href="#tables" class="leftbar__link">Столы</a></li>
             <li class="leftbar__li"><a href="#applications" class="leftbar__link">Заказы</a></li>
+            <li class="leftbar__li"><a href="#reserves" class="leftbar__link">Резерв</a></li>
             <li class="leftbar__li"><a href="./../" class="leftbar__link">Назад</a></li>
         </ul>
     </nav>
@@ -64,8 +65,8 @@
                     </div>
                     <div class="admin-form__block-input">
                         <div class="admin-form__border-block"></div>
-                        <textarea type="text" name="description" id="fillings_description" class="admin-form__input" required></textarea>
-                        <label for="fillings_description" class="admin-form__label-input">Описание</label>
+                        <textarea type="text" name="description" id="product_description" class="admin-form__input" required></textarea>
+                        <label for="product_description" class="admin-form__label-input">Описание</label>
                     </div>
                     <label for="product_image" class="admin-form__label-file">
                         <div class="admin-form__label-content"></div>
@@ -79,30 +80,21 @@
                 </article>
             </main>
         </section>
-        <section class="section" id="fillings">
-            <h1 class="section__heading">Начинки</h1>
+        <section class="section" id="tables">
+            <h1 class="section__heading">Столы</h1>
             <main class="section__body">
                 <form class="section__form admin-form">
                     <h2 class="admin-form__heading">Добавить</h2>
                     <div class="admin-form__block-input">
                         <div class="admin-form__border-block"></div>
-                        <input type="text" name="name" id="fillings_name" class="admin-form__input" required>
-                        <label for="fillings_name" class="admin-form__label-input">Название начинки</label>
+                        <input type="text" name="name" id="tables_name" class="admin-form__input" required>
+                        <label for="tables_name" class="admin-form__label-input">Номер стола</label>
                     </div>
-                    <div class="admin-form__block-input">
-                        <div class="admin-form__border-block"></div>
-                        <textarea type="text" name="description" id="fillings_description" class="admin-form__input" required></textarea>
-                        <label for="fillings_description" class="admin-form__label-input">Описание начинки</label>
-                    </div>
-
-                    <label for="filling_image" class="admin-form__label-file">
-                        <div class="admin-form__label-content"></div>
-                        <input class="admin-form__input-file" type="file" name="image" id="filling_image" accept="image/*">
-                    </label>
-                    <button class="admin-form__button-submit" type="submit" name="filling" value="add">Добавить</button>
+                   
+                    <button class="admin-form__button-submit" type="submit" name="table" value="add">Добавить</button>
                 </form>
                 <article class="section__list section__with-table">
-                    <table class="section__table table" id="fillings-table">
+                    <table class="section__table table" id="tables-table">
                     </table>
                 </article>
             </main>
@@ -112,6 +104,14 @@
             <main class="section__body">
                 <article class="section__with-table" id="application">
                     <table id="application-table" class="section__table table"></table>
+                </article>
+            </main>
+        </section>
+        <section class="section" id="reserves">
+            <h1 class="section__heading">Резерв столов</h1>
+            <main class="section__body">
+                <article class="section__with-table" id="reserve">
+                    <table id="reserve-table" class="section__table table"></table>
                 </article>
             </main>
         </section>

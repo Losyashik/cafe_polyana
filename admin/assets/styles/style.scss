@@ -238,7 +238,7 @@ body {
     overflow: auto;
     &__with-table {
         max-height: 90vh;
-        &#application{
+        &#application,&#reserve{
             width: 100%;
         }
     }
